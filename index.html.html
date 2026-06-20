@@ -1,0 +1,1616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <title>SOUAD HMAROU · Creative Developer & Digital Artist</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Outfit:wght@100;200;300;400;500;600;700;800;900&family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --dark: #0a0a0a;
+      --darker: #050505;
+      --card-bg: #141414;
+      --white: #ffffff;
+      --gray: #808080;
+      --light-gray: #b3b3b3;
+      --gold: #c9a961;
+      --gold-light: #e8d7af;
+      --purple: #7c3aed;
+      --pink: #ec4899;
+      --blue: #3b82f6;
+      --cyan: #06b6d4;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      
+  font-family: 'Outfit', sans-serif;
+  background: var(--dark);
+  color: var(--white);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  cursor: default; /* تأكدي أن تكون default أو احذفي السطر تماماً */
+}
+    
+
+    /* ============ ADVANCED CURSOR ============ */
+    .custom-cursor {
+      position: fixed;
+      width: 40px;
+      height: 40px;
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10000;
+      transition: all 0.15s ease;
+      mix-blend-mode: difference;
+    }
+
+    .cursor-dot {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: var(--gold);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10001;
+      transition: transform 0.1s ease;
+    }
+
+    .custom-cursor.hover {
+      width: 60px;
+      height: 60px;
+      background: rgba(201, 169, 97, 0.1);
+      border-color: var(--gold-light);
+    }
+
+    .cursor-dot.hover {
+      transform: scale(2);
+    }
+
+    /* ============ ADVANCED BACKGROUND ============ */
+    .animated-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .gradient-sphere {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.4;
+      animation: floatSphere 25s ease-in-out infinite;
+    }
+
+    .sphere-1 {
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(124, 58, 237, 0.6), transparent);
+      top: -200px;
+      right: -200px;
+      animation-delay: 0s;
+    }
+
+    .sphere-2 {
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(236, 72, 153, 0.5), transparent);
+      bottom: -150px;
+      left: -150px;
+      animation-delay: 8s;
+    }
+
+    .sphere-3 {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.4), transparent);
+      top: 40%;
+      left: 40%;
+      animation-delay: 16s;
+    }
+
+    .sphere-4 {
+      width: 550px;
+      height: 550px;
+      background: radial-gradient(circle, rgba(6, 182, 212, 0.3), transparent);
+      top: 20%;
+      right: 30%;
+      animation-delay: 12s;
+    }
+
+    @keyframes floatSphere {
+      0%, 100% {
+        transform: translate(0, 0) scale(1);
+      }
+      25% {
+        transform: translate(50px, -50px) scale(1.1);
+      }
+      50% {
+        transform: translate(-30px, 40px) scale(0.95);
+      }
+      75% {
+        transform: translate(40px, 30px) scale(1.05);
+      }
+    }
+
+    /* Particle System */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: var(--gold);
+      border-radius: 50%;
+      opacity: 0;
+      animation: floatParticle 15s linear infinite;
+    }
+
+    @keyframes floatParticle {
+      0% {
+        opacity: 0;
+        transform: translateY(100vh) translateX(0);
+      }
+      10% {
+        opacity: 0.5;
+      }
+      90% {
+        opacity: 0.5;
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-100vh) translateX(100px);
+      }
+    }
+
+    /* Noise Texture */
+    .noise-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      opacity: 0.04;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='5' numOctaves='5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      animation: noiseMove 8s steps(10) infinite;
+    }
+
+    @keyframes noiseMove {
+      0%, 100% { transform: translate(0, 0); }
+      10% { transform: translate(-5%, -5%); }
+      20% { transform: translate(-10%, 5%); }
+      30% { transform: translate(5%, -10%); }
+      40% { transform: translate(-5%, 15%); }
+      50% { transform: translate(-10%, 5%); }
+      60% { transform: translate(15%, 0); }
+      70% { transform: translate(0, 10%); }
+      80% { transform: translate(-15%, 0); }
+      90% { transform: translate(10%, 5%); }
+    }
+
+    /* ============ HEADER ============ */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 2rem 4rem;
+      background: rgba(10, 10, 10, 0.6);
+      -webkit-backdrop-filter: blur(30px) saturate(180%);
+      backdrop-filter: blur(30px) saturate(180%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      transform: translateY(-100%);
+      animation: slideDown 1s ease 0.5s forwards;
+    }
+
+    @keyframes slideDown {
+      to { transform: translateY(0); }
+    }
+
+    .header-content {
+      max-width: 1800px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .logo::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.5s ease;
+    }
+
+    .logo:hover::after {
+      transform: translateX(0);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 3rem;
+    }
+
+    nav a {
+      color: var(--light-gray);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    nav a::before {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--gold);
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+    }
+
+    nav a:hover {
+      color: var(--white);
+    }
+
+    nav a:hover::before {
+      width: 100%;
+    }
+
+    /* ============ HERO SECTION ============ */
+    .hero {
+      position: relative;
+      z-index: 10;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 8rem 4rem;
+      max-width: 1800px;
+      margin: 0 auto;
+    }
+
+    .hero-content {
+      max-width: 1000px;
+      position: relative;
+    }
+
+    .hero-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 2.5rem;
+      display: inline-block;
+      opacity: 0;
+      animation: fadeInUp 1s ease 0.8s forwards;
+      position: relative;
+      padding-left: 3rem;
+    }
+
+    .hero-label::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 2rem;
+      height: 2px;
+      background: var(--gold);
+      transform: translateY(-50%);
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(4rem, 12vw, 10rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 0.95;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeInUp 1s ease 1s forwards;
+    }
+
+    .hero h1 .line {
+      display: block;
+      overflow: hidden;
+    }
+
+    .hero h1 .line span {
+      display: inline-block;
+      transform: translateY(100%);
+      animation: slideUpText 1.2s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+    }
+
+    .hero h1 .line:nth-child(1) span { animation-delay: 1s; }
+    .hero h1 .line:nth-child(2) span { animation-delay: 1.2s; }
+    .hero h1 .line:nth-child(3) span { animation-delay: 1.4s; }
+
+    @keyframes slideUpText {
+      to { transform: translateY(0); }
+    }
+
+    .hero h1 .gradient-text {
+      background: linear-gradient(135deg, var(--white) 0%, var(--gray) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero h1 .gold-text {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-description {
+      font-size: clamp(1.1rem, 2vw, 1.6rem);
+      color: var(--light-gray);
+      line-height: 1.8;
+      max-width: 700px;
+      margin-bottom: 4rem;
+      opacity: 0;
+      animation: fadeInUp 1s ease 1.6s forwards;
+    }
+
+    .hero-tags {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 4rem;
+      opacity: 0;
+      animation: fadeInUp 1s ease 1.8s forwards;
+    }
+
+    .tag {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 0.7rem 1.5rem;
+      background: rgba(201, 169, 97, 0.1);
+      border: 1px solid rgba(201, 169, 97, 0.3);
+      border-radius: 50px;
+      color: var(--gold-light);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tag::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(201, 169, 97, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .tag:hover {
+      border-color: var(--gold);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(201, 169, 97, 0.2);
+    }
+
+    .tag:hover::before {
+      left: 100%;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 2rem;
+      opacity: 0;
+      animation: fadeInUp 1s ease 2s forwards;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .btn {
+      padding: 1.2rem 3rem;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 50px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      letter-spacing: 0.05em;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      color: var(--dark);
+      box-shadow: 0 10px 40px rgba(201, 169, 97, 0.3);
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.6s ease, height 0.6s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 50px rgba(201, 169, 97, 0.5);
+    }
+
+    .btn-primary:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      color: var(--white);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--gold);
+      background: rgba(201, 169, 97, 0.1);
+      transform: translateY(-3px);
+    }
+
+    /* ============ SECTION HEADERS ============ */
+    .section {
+      position: relative;
+      z-index: 10;
+      max-width: 1800px;
+      margin: 0 auto;
+      padding: 10rem 4rem;
+    }
+
+    .section-header {
+      margin-bottom: 8rem;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .section-header.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+      display: inline-block;
+      position: relative;
+      padding-left: 3rem;
+    }
+
+    .section-label::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 2rem;
+      height: 2px;
+      background: var(--gold);
+      transform: translateY(-50%);
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 7vw, 6rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 2rem;
+    }
+
+    .section-description {
+      font-size: 1.3rem;
+      color: var(--light-gray);
+      max-width: 800px;
+      line-height: 1.8;
+    }
+
+    /* ============ PROJECTS GRID ============ */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3rem;
+    }
+
+    .project-card {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      background: var(--card-bg);
+      opacity: 0;
+      transform: translateY(80px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .project-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .project-card:hover {
+      transform: translateY(-15px) scale(1.02);
+    }
+
+    .project-visual {
+      position: relative;
+      width: 100%;
+      height: 500px;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+    }
+
+    .project-card:nth-child(2) .project-visual { background: linear-gradient(135deg, var(--pink), var(--purple)); }
+    .project-card:nth-child(3) .project-visual { background: linear-gradient(135deg, var(--blue), var(--cyan)); }
+    .project-card:nth-child(4) .project-visual { background: linear-gradient(135deg, var(--gold), var(--gold-light)); }
+
+    .project-visual svg {
+      width: 100%;
+      height: 100%;
+      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .project-card:hover .project-visual svg {
+      transform: scale(1.1) rotate(2deg);
+    }
+
+    .project-number {
+      position: absolute;
+      top: 2rem;
+      left: 2rem;
+      font-family: 'Fira Code', monospace;
+      font-size: 3rem;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.2);
+      z-index: 1;
+    }
+
+    .project-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 3rem;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.95), transparent);
+      transform: translateY(100%);
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .project-card:hover .project-overlay {
+      transform: translateY(0);
+    }
+
+    .project-content {
+      padding: 3rem;
+    }
+
+    .project-tags {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .project-tag {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.5rem 1.2rem;
+      background: rgba(255, 255, 255, 0.1);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      color: var(--gold-light);
+    }
+
+    .project-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    .project-description {
+      font-size: 1.05rem;
+      color: var(--light-gray);
+      line-height: 1.8;
+    }
+
+    /* ============ SKILLS SECTION ============ */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem;
+    }
+
+    .skill-card {
+      background: var(--card-bg);
+      padding: 4rem 3rem;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(60px);
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .skill-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .skill-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .skill-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .skill-card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(201, 169, 97, 0.2);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .skill-icon {
+      font-size: 4rem;
+      margin-bottom: 2rem;
+      display: inline-block;
+      filter: grayscale(1);
+      transition: filter 0.4s ease;
+    }
+
+    .skill-card:hover .skill-icon {
+      filter: grayscale(0);
+      animation: iconBounce 0.6s ease;
+    }
+
+    @keyframes iconBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .skill-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .skill-list {
+      list-style: none;
+    }
+
+    .skill-list li {
+      font-size: 1.05rem;
+      color: var(--light-gray);
+      margin-bottom: 1.2rem;
+      padding-left: 2rem;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .skill-list li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-weight: 700;
+      transition: transform 0.3s ease;
+    }
+
+    .skill-list li:hover {
+      color: var(--white);
+      padding-left: 2.5rem;
+    }
+
+    .skill-list li:hover::before {
+      transform: translateX(5px);
+    }
+
+    /* ============ CONTACT SECTION ============ */
+    .contact-wrapper {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .contact-info {
+      background: var(--card-bg);
+      padding: 5rem;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      opacity: 0;
+      transform: translateX(-50px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .contact-info.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .contact-info h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 3rem;
+      letter-spacing: -0.01em;
+    }
+
+    .contact-item {
+      margin-bottom: 3rem;
+    }
+
+    .contact-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .contact-value {
+      font-size: 1.4rem;
+      font-weight: 500;
+      line-height: 1.6;
+    }
+
+    .contact-value a {
+      color: var(--white);
+      text-decoration: none;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .contact-value a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--gold);
+      transition: width 0.3s ease;
+    }
+
+    .contact-value a:hover {
+      color: var(--gold-light);
+    }
+
+    .contact-value a:hover::after {
+      width: 100%;
+    }
+
+    .contact-cta {
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      padding: 5rem;
+      border-radius: 24px;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateX(50px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .contact-cta.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .contact-cta::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
+      animation: rotateCTA 20s linear infinite;
+    }
+     
+    .project-card {
+  background: rgba(255, 255, 255, 0.03);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.project-card:hover {
+  border-color: var(--gold);
+  box-shadow: 0 0 30px rgba(201, 169, 97, 0.2);
+  transform: translateY(-10px) scale(1.02);
+}
+    @keyframes rotateCTA {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .contact-cta h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      letter-spacing: -0.01em;
+      position: relative;
+      z-index: 1;
+    }
+
+    .contact-cta p {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+      opacity: 0.95;
+      position: relative;
+      z-index: 1;
+    }
+
+        .availability-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 2rem;
+      background: rgba(255, 255, 255, 0.15);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      border-radius: 50px;
+      font-weight: 600;
+      position: relative;
+      z-index: 1;
+    }
+
+    .status-indicator {
+      width: 12px;
+      height: 12px;
+      background: #22c55e;
+      border-radius: 50%;
+      animation: statusPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes statusPulse {
+      0%, 100% {
+        opacity: 1;
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+      }
+      50% {
+        opacity: 0.7;
+        box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
+      }
+    }
+
+    /* ============ FOOTER ============ */
+    footer {
+      position: relative;
+      z-index: 10;
+      max-width: 1800px;
+      margin: 0 auto;
+      padding: 5rem 4rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .footer-text {
+      font-size: 1rem;
+      color: var(--gray);
+    }
+
+    /* ============ RESPONSIVE ============ */
+    @media (max-width: 1200px) {
+      .projects-grid,
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-wrapper {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        cursor: auto;
+      }
+
+      .custom-cursor,
+      .cursor-dot {
+        display: none;
+      }
+
+      header {
+        padding: 1.5rem 2rem;
+      }
+
+      nav ul {
+        gap: 1.5rem;
+      }
+
+      nav a {
+        font-size: 0.8rem;
+      }
+
+      .hero,
+      .section {
+        padding: 6rem 2rem;
+      }
+
+      .project-visual {
+        height: 350px;
+      }
+
+      .section-header {
+        margin-bottom: 4rem;
+      }
+
+      .footer-content {
+        flex-direction: column;
+        gap: 2rem;
+        text-align: center;
+      }
+    }
+
+    /* ============ SCROLLBAR ============ */
+    ::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--darker);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, var(--gold), var(--purple));
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(180deg, var(--gold-light), var(--pink));
+    }
+
+    /* ============ SELECTION ============ */
+    ::selection {
+      background: var(--gold);
+      color: var(--dark);
+    }
+  </style>
+</head>
+<body>
+  <!-- Custom Cursor -->
+  <div class="custom-cursor"></div>
+  <div class="cursor-dot"></div>
+
+  <!-- Animated Background -->
+  <div class="animated-background">
+    <div class="gradient-sphere sphere-1"></div>
+    <div class="project-card" data-aos="fade-up"> ... </div>
+    <div class="gradient-sphere sphere-2"></div>
+    <div class="gradient-sphere sphere-3"></div>
+    <div class="gradient-sphere sphere-4"></div>
+  </div>
+
+  <!-- Particles -->
+  <div class="particles" id="particles"></div>
+
+  <!-- Noise Overlay -->
+  <div class="noise-overlay"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="header-content">
+      <a href="#" class="logo">SOUAD HMAROU</a>
+      <nav>
+        <ul>
+          <li><a href="#work">Work</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-label">Creative Web Developer</div>
+      <h1>
+        <div class="line"><span class="gradient-text">Crafting</span></div>
+        <div class="line"><span class="gold-text">Digital</span></div>
+        <div class="line"><span class="gradient-text">Masterpieces</span></div>
+      </h1>
+      <p class="hero-description">
+        Passionate frontend developer specializing in React, JavaScript, and cutting-edge web technologies. 
+        I transform ideas into stunning, high-performance digital experiences.
+      </p>
+      <div class="hero-tags">
+        <span class="tag">React.js</span>
+        <span class="tag">JavaScript ES6+</span>
+        <span class="tag">HTML5 & CSS3</span>
+        <span class="tag">Responsive Design</span>
+        <span class="tag">UI/UX</span>
+        <span class="tag">Performance</span>
+      </div>
+      <div class="hero-cta">
+        <a href="#work" class="btn btn-primary">Explore Work</a>
+        <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Work Section -->
+  <section id="work" class="section">
+    <div class="section-header">
+      <div class="section-label">Portfolio</div>
+      <h2 class="section-title">Featured Projects</h2>
+      <p class="section-description">
+        A curated collection of my finest work, showcasing expertise in modern web development and creative problem-solving.
+      </p>
+    </div>
+
+    <div class="projects-grid">
+      <!-- Project 1: React Mastery -->
+      <div class="project-card">
+        <div class="project-visual">
+          <div class="project-number">01</div>
+          <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+            <!-- React Logo Inspired -->
+            <g opacity="0.15">
+              <ellipse cx="400" cy="300" rx="280" ry="100" fill="none" stroke="white" stroke-width="3"/>
+              <ellipse cx="400" cy="300" rx="280" ry="100" fill="none" stroke="white" stroke-width="3" transform="rotate(60 400 300)"/>
+              <ellipse cx="400" cy="300" rx="280" ry="100" fill="none" stroke="white" stroke-width="3" transform="rotate(-60 400 300)"/>
+              <circle cx="400" cy="300" r="25" fill="white"/>
+            </g>
+            <!-- Modern UI Elements -->
+            <rect x="150" y="150" width="500" height="300" rx="20" fill="rgba(255,255,255,0.95)" opacity="0.9"/>
+            <rect x="180" y="180" width="440" height="80" rx="12" fill="#7c3aed"/>
+            <circle cx="220" cy="220" r="20" fill="white" opacity="0.3"/>
+            <circle cx="580" cy="220" r="20" fill="white" opacity="0.3"/>
+            <text x="300" y="235" font-family="Arial" font-size="28" font-weight="bold" fill="white">React.js</text>
+            <!-- Component Cards -->
+            <rect x="180" y="280" width="200" height="140" rx="12" fill="#f3f4f6"/>
+            <rect x="200" y="300" width="160" height="30" rx="6" fill="#7c3aed" opacity="0.3"/>
+            <rect x="200" y="340" width="120" height="15" rx="4" fill="#e5e7eb"/>
+            <rect x="200" y="365" width="140" height="15" rx="4" fill="#e5e7eb"/>
+            <rect x="200" y="390" width="100" height="15" rx="4" fill="#e5e7eb"/>
+            <rect x="420" y="280" width="200" height="140" rx="12" fill="#f3f4f6"/>
+            <rect x="440" y="300" width="160" height="30" rx="6" fill="#ec4899" opacity="0.3"/>
+            <rect x="440" y="340" width="140" height="15" rx="4" fill="#e5e7eb"/>
+            <rect x="440" y="365" width="120" height="15" rx="4" fill="#e5e7eb"/>
+            <rect x="440" y="390" width="110" height="15" rx="4" fill="#e5e7eb"/>
+          </svg>
+          <div class="project-overlay">
+            <div class="project-tags">
+              <span class="project-tag">React</span>
+              <span class="project-tag">Hooks</span>
+              <span class="project-tag">Components</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-content">
+          <div class="project-tags">
+            <span class="project-tag">React.js</span>
+            <span class="project-tag">JavaScript</span>
+            <span class="project-tag">State Management</span>
+          </div>
+          <h3 class="project-title">Interactive React Applications</h3>
+          <p class="project-description">
+            Building scalable, performant single-page applications using React hooks, context API, and modern component architecture patterns for seamless user experiences.
+          </p>
+        </div>
+      </div>
+
+      <!-- Project 2: Responsive Excellence -->
+      <div class="project-card">
+        <div class="project-visual">
+          <div class="project-number">02</div>
+          <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+            <!-- Desktop -->
+            <rect x="380" y="120" width="350" height="250" rx="15" fill="rgba(255,255,255,0.95)"/>
+            <rect x="395" y="135" width="320" height="180" rx="8" fill="#ec4899"/>
+            <circle cx="555" cy="350" r="25" fill="rgba(255,255,255,0.95)"/>
+            <rect x="480" y="365" width="150" height="8" rx="4" fill="rgba(255,255,255,0.95)"/>
+            <!-- Tablet -->
+            <rect x="250" y="180" width="200" height="280" rx="15" fill="rgba(255,255,255,0.95)"/>
+            <rect x="265" y="195" width="170" height="230" rx="8" fill="#f5576c"/>
+            <circle cx="350" cy="445" r="15" fill="rgba(255,255,255,0.95)"/>
+            <!-- Mobile -->
+            <rect x="100" y="240" width="130" height="230" rx="15" fill="rgba(255,255,255,0.95)"/>
+            <rect x="112" y="255" width="106" height="190" rx="6" fill="#ec4899"/>
+            <circle cx="165" cy="460" r="10" fill="rgba(255,255,255,0.95)"/>
+            <!-- Connection Lines -->
+            <path d="M 230 350 Q 300 300 380 270" stroke="white" stroke-width="3" fill="none" opacity="0.3" stroke-dasharray="5,5"/>
+            <path d="M 350 250 Q 400 200 480 200" stroke="white" stroke-width="3" fill="none" opacity="0.3" stroke-dasharray="5,5"/>
+          </svg>
+          <div class="project-overlay">
+            <div class="project-tags">
+              <span class="project-tag">Mobile-First</span>
+              <span class="project-tag">Adaptive</span>
+              <span class="project-tag">Fluid</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-content">
+          <div class="project-tags">
+            <span class="project-tag">Responsive</span>
+            <span class="project-tag">CSS Grid</span>
+            <span class="project-tag">Flexbox</span>
+          </div>
+          <h3 class="project-title">Responsive Web Design</h3>
+          <p class="project-description">
+            Creating pixel-perfect, mobile-first interfaces that adapt fluidly across all devices, ensuring optimal user experience on every screen size.
+          </p>
+        </div>
+      </div>
+
+      <!-- Project 3: UI Components -->
+      <div class="project-card">
+        <div class="project-visual">
+          <div class="project-number">03</div>
+          <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+            <!-- Component Library -->
+            <rect x="100" y="100" width="600" height="400" rx="20" fill="rgba(255,255,255,0.95)"/>
+            <!-- Header -->
+            <rect x="120" y="120" width="560" height="70" rx="12" fill="#1a1a1a"/>
+            <text x="140" y="165" font-family="monospace" font-size="24" fill="#4facfe">&lt;ComponentLibrary/&gt;</text>
+            <circle cx="640" cy="155" r="15" fill="#22c55e"/>
+            <!-- Grid of Components -->
+            <rect x="140" y="210" width="160" height="160" rx="12" fill="#f3f4f6"/>
+            <rect x="155" y="225" width="130" height="40" rx="8" fill="#3b82f6"/>
+            <rect x="155" y="280" width="80" height="25" rx="6" fill="#06b6d4" opacity="0.6"/>
+            <rect x="155" y="320" width="100" height="25" rx="6" fill="#06b6d4" opacity="0.6"/>
+            <rect x="320" y="210" width="160" height="160" rx="12" fill="#f3f4f6"/>
+            <circle cx="400" cy="270" r="40" fill="#3b82f6" opacity="0.3"/>
+            <circle cx="400" cy="270" r="25" fill="#3b82f6"/>
+            <rect x="500" y="210" width="160" height="160" rx="12" fill="#f3f4f6"/>
+            <rect x="515" y="225" width="130" height="15" rx="4" fill="#e5e7eb"/>
+            <rect x="515" y="250" width="100" height="15" rx="4" fill="#e5e7eb"/>
+            <rect x="515" y="275" width="120" height="15" rx="4" fill="#e5e7eb"/>
+            <rect x="515" y="310" width="130" height="50" rx="8" fill="#3b82f6"/>
+            <!-- Bottom Row -->
+            <rect x="140" y="390" width="240" height="80" rx="12" fill="#f3f4f6"/>
+            <path d="M 160 420 L 180 440 L 360 410" stroke="#3b82f6" stroke-width="4" fill="none"/>
+            <rect x="400" y="390" width="260" height="80" rx="12" fill="#f3f4f6"/>
+            <rect x="420" y="410" width="40" height="40" rx="8" fill="#3b82f6"/>
+            <rect x="470" y="410" width="40" height="40" rx="8" fill="#06b6d4"/>
+            <rect x="520" y="410" width="40" height="40" rx="8" fill="#3b82f6"/>
+            <rect x="570" y="410" width="40" height="40" rx="8" fill="#06b6d4"/>
+          </svg>
+          <div class="project-overlay">
+            <div class="project-tags">
+              <span class="project-tag">Modular</span>
+              <span class="project-tag">Reusable</span>
+              <span class="project-tag">Scalable</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-content">
+          <div class="project-tags">
+            <span class="project-tag">Components</span>
+            <span class="project-tag">Design System</span>
+            <span class="project-tag">Documentation</span>
+          </div>
+          <h3 class="project-title">Component Libraries</h3>
+          <p class="project-description">
+            Developing comprehensive, well-documented component libraries with consistent design patterns and reusable building blocks for rapid development.
+          </p>
+        </div>
+      </div>
+
+      <!-- Project 4: Code Excellence -->
+      <div class="project-card">
+        <div class="project-visual">
+          <div class="project-number">04</div>
+          <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+            <!-- Code Editor -->
+            <rect x="120" y="100" width="560" height="400" rx="20" fill="#1a1a1a"/>
+            <!-- Window Controls -->
+            <circle cx="145" cy="125" r="8" fill="#ff5f56"/>
+            <circle cx="170" cy="125" r="8" fill="#ffbd2e"/>
+            <circle cx="195" cy="125" r="8" fill="#27c93f"/>
+            <!-- Sidebar -->
+            <rect x="140" y="150" width="80" height="330" rx="8" fill="#0a0a0a"/>
+            <rect x="150" y="165" width="60" height="25" rx="6" fill="#c9a961" opacity="0.3"/>
+            <rect x="150" y="200" width="60" height="20" rx="4" fill="rgba(255,255,255,0.1)"/>
+            <rect x="150" y="230" width="60" height="20" rx="4" fill="rgba(255,255,255,0.1)"/>
+            <rect x="150" y="260" width="60" height="20" rx="4" fill="rgba(255,255,255,0.1)"/>
+            <!-- Code Area -->
+            <text x="240" y="185" font-family="monospace" font-size="16" fill="#8b5cf6">const</text>
+            <text x="295" y="185" font-family="monospace" font-size="16" fill="#e8d7af">App</text>
+            <text x="335" y="185" font-family="monospace" font-size="16" fill="#fff">=</text>
+            <text x="355" y="185" font-family="monospace" font-size="16" fill="#fff">()</text>
+            <text x="390" y="185" font-family="monospace" font-size="16" fill="#8b5cf6">=&gt;</text>
+            <text x="435" y="185" font-family="monospace" font-size="16" fill="#fff">{</text>
+            
+            <text x="260" y="215" font-family="monospace" font-size="16" fill="#8b5cf6">return</text>
+            <text x="320" y="215" font-family="monospace" font-size="16" fill="#fff">(</text>
+            
+            <text x="280" y="245" font-family="monospace" font-size="16" fill="#ec4899">&lt;div</text>
+            <text x="330" y="245" font-family="monospace" font-size="16" fill="#06b6d4">className</text>
+            <text x="430" y="245" font-family="monospace" font-size="16" fill="#fff">=</text>
+            <text x="450" y="245" font-family="monospace" font-size="16" fill="#22c93f">"app"</text>
+            <text x="510" y="245" font-family="monospace" font-size="16" fill="#ec4899">&gt;</text>
+            
+            <text x="300" y="275" font-family="monospace" font-size="16" fill="#ec4899">&lt;h1&gt;</text>
+            <text x="350" y="275" font-family="monospace" font-size="16" fill="#fff">Hello</text>
+            <text x="410" y="275" font-family="monospace" font-size="16" fill="#ec4899">&lt;/h1&gt;</text>
+            
+            <text x="300" y="305" font-family="monospace" font-size="16" fill="#ec4899">&lt;p&gt;</text>
+            <text x="340" y="305" font-family="monospace" font-size="16" fill="#fff">Welcome</text>
+            <text x="430" y="305" font-family="monospace" font-size="16" fill="#ec4899">&lt;/p&gt;</text>
+            
+            <text x="280" y="335" font-family="monospace" font-size="16" fill="#ec4899">&lt;/div&gt;</text>
+            
+            <text x="260" y="365" font-family="monospace" font-size="16" fill="#fff">);</text>
+            <text x="240" y="395" font-family="monospace" font-size="16" fill="#fff">}</text>
+            
+            <!-- Status Bar -->
+            <rect x="140" y="450" width="540" height="30" rx="0" fill="#0a0a0a"/>
+            <circle cx="160" cy="465" r="5" fill="#22c93f"/>
+            <text x="175" y="470" font-family="monospace" font-size="12" fill="#b3b3b3">JavaScript React</text>
+          </svg>
+          <div class="project-overlay">
+            <div class="project-tags">
+              <span class="project-tag">Clean</span>
+              <span class="project-tag">Maintainable</span>
+              <span class="project-tag">Optimized</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-content">
+          <div class="project-tags">
+            <span class="project-tag">Best Practices</span>
+            <span class="project-tag">Git</span>
+            <span class="project-tag">VS Code</span>
+          </div>
+          <h3 class="project-title">Clean Code Excellence</h3>
+          <p class="project-description">
+            Writing maintainable, well-structured code following industry standards, with comprehensive documentation and version control best practices.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills" class="section">
+    <div class="section-header">
+      <div class="section-label">Expertise</div>
+      <h2 class="section-title">Skills & Mastery</h2>
+      <p class="section-description">
+        A comprehensive toolkit of modern technologies and methodologies I leverage to create exceptional digital experiences.
+      </p>
+    </div>
+
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon">⚛️</div>
+        <h3>Frontend Development</h3>
+        <ul class="skill-list">
+          <li>React.js & Hooks</li>
+          <li>JavaScript ES6+</li>
+          <li>HTML5 & CSS3</li>
+          <li>Responsive Design</li>
+          <li>Modern UI/UX Patterns</li>
+          <li>Performance Optimization</li>
+        </ul>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-icon">🛠️</div>
+        <h3>Tools & Ecosystem</h3>
+        <ul class="skill-list">
+          <li>Git & GitHub</li>
+          <li>VS Code & Extensions</li>
+          <li>Chrome DevTools</li>
+          <li>npm & Package Management</li>
+          <li>Webpack & Build Tools</li>
+          <li>Figma & Design Tools</li>
+        </ul>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-icon">💡</div>
+        <h3>Core Competencies</h3>
+        <ul class="skill-list">
+          <li>Problem Solving</li>
+          <li>Component Architecture</li>
+          <li>State Management</li>
+          <li>API Integration</li>
+          <li>Accessibility (WCAG)</li>
+          <li>Cross-browser Testing</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="section">
+    <div class="section-header">
+      <div class="section-label">Let's Connect</div>
+      <h2 class="section-title">Get In Touch</h2>
+      <p class="section-description">
+        Ready to collaborate on your next project? I'd love to hear from you.
+      </p>
+    </div>
+
+    <div class="contact-wrapper">
+      <div class="contact-info">
+        <h3>Contact Details</h3>
+        <div class="contact-item">
+          <div class="contact-label">Email</div>
+          <div class="contact-value">
+            <a href="mailto:hmarousouad@gmail.com">hmarousouad@gmail.com</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-label">Phone</div>
+          <div class="contact-value">
+            <a href="tel:+21264553564">+212 645 535 64</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-label">Location</div>
+          <div class="contact-value">
+            Benguerir, Marrakech-Safi<br>Morocco
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-label">Languages</div>
+          <div class="contact-value">
+            Arabic (Native) · French · English
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-cta">
+        <h3>Currently Available</h3>
+        <p>
+          I'm actively seeking opportunities to work on exciting web development projects. 
+          Whether freelance, full-time, or collaborative ventures, I'm eager to tackle new challenges 
+          and create outstanding digital experiences.
+        </p>
+        <div class="availability-badge">
+          <span class="status-indicator"></span>
+          <span>Open to Opportunities</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">Souad HMAROU</div>
+      <div class="footer-text">© 2026 · Designed & Developed with Passion</div>
+    </div>
+  </footer>
+
+  <script>
+    // ============ CUSTOM CURSOR ============
+    const cursor = document.querySelector('.custom-cursor');
+    const cursorDot = document.querySelector('.cursor-dot');
+    let mouseX = 0, mouseY = 0;
+    let cursorX = 0, cursorY = 0;
+    let dotX = 0, dotY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    
+const links = document.querySelectorAll('a, button, .tag');
+
+links.forEach(link => {
+  link.addEventListener('mouseenter', () => {
+    cursor.classList.add('hover');
+    cursor.style.transform = 'scale(1.5)';
+    cursor.style.backgroundColor = 'rgba(201, 169, 97, 0.2)';
+  });
+  link.addEventListener('mouseleave', () => {
+    cursor.classList.remove('hover');
+    cursor.style.transform = 'scale(1)';
+    cursor.style.backgroundColor = 'transparent';
+  });
+});
+
+    function animateCursor() {
+      // Main cursor with delay
+      const dx = mouseX - cursorX;
+      const dy = mouseY - cursorY;
+      cursorX += dx * 0.15;
+      cursorY += dy * 0.15;
+      cursor.style.left = cursorX + 'px';
+      cursor.style.top = cursorY + 'px';
+
+      // Dot with less delay
+      const dotDx = mouseX - dotX;
+      const dotDy = mouseY - dotY;
+      dotX += dotDx * 0.25;
+      dotY += dotDy * 0.25;
+      cursorDot.style.left = dotX + 'px';
+      cursorDot.style.top = dotY + 'px';
+
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    // Cursor hover effects
+    const hoverElements = document.querySelectorAll('a, button, .project-card, .skill-card');
+    hoverElements.forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.classList.add('hover');
+        cursorDot.classList.add('hover');
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.classList.remove('hover');
+        cursorDot.classList.remove('hover');
+      });
+    });
+
+    // ============ PARTICLES SYSTEM ============
+    const particlesContainer = document.getElementById('particles');
+    const particleCount = 30;
+
+    for (let i = 0; i < particleCount; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.animationDelay = Math.random() * 15 + 's';
+      particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+      particlesContainer.appendChild(particle);
+    }
+
+    // ============ SCROLL ANIMATIONS ============
+    const observerOptions = {
+      threshold: 0.2,
+      rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.section-header, .project-card, .skill-card, .contact-info, .contact-cta').forEach(el => {
+      observer.observe(el);
+    });
+
+    // ============ SMOOTH SCROLL ============
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // ============ PARALLAX EFFECT ============
+    let scrollY = 0;
+    window.addEventListener('scroll', () => {
+      scrollY = window.scrollY;
+      requestAnimationFrame(() => {
+        document.querySelectorAll('.gradient-sphere').forEach((sphere, index) => {
+          const speed = 0.1 + (index * 0.05);
+          sphere.style.transform = `translateY(${scrollY * speed}px)`;
+        });
+      });
+    });
+  </script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 1000,
+    once: true,
+    mirror: false
+  });
+</script>
+</body>
+</html>
